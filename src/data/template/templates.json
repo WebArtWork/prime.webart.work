@@ -1,0 +1,40 @@
+[
+	{
+		"slug": "ngx-prime-default",
+		"name": "Ngx Prime Default",
+		"tagline": "SSR-ready Angular 22 landing starter with Tailwind and signal-based theming",
+		"description": "A prerender-first Angular 22 starter built for fast marketing and business landing pages. Ships with SSR/prerender wired up, Tailwind CSS, light/dark theming on CSS variables, and a bootstrap layer for company data and multilingual content.",
+		"features": [
+			"Angular 22 with SSR and build-time prerendering",
+			"Tailwind CSS with a shared design-token theme (light and dark)",
+			"Company bootstrap layer backed by signals",
+			"Built-in multilingual switching",
+			"SEO metadata wired through route data"
+		],
+		"stack": ["Angular 22", "TypeScript", "Tailwind CSS", "SSR / Prerender"],
+		"price": 0,
+		"license": "free",
+		"repoUrl": "https://github.com/WebArtWork/ngx-prime-default.webart.work",
+		"demoUrl": "https://bos.webart.work",
+		"previewImage": ""
+	},
+	{
+		"slug": "ngx-prime-sakai",
+		"name": "Ngx Prime Sakai",
+		"tagline": "Angular 22 admin dashboard, forked from the PrimeTek Sakai template",
+		"description": "An Angular 22 admin dashboard template forked from PrimeTek's Sakai design, rebuilt on PrimeNG for internal tools, back-office panels, and client dashboards.",
+		"features": [
+			"Angular 22 admin shell with PrimeNG components",
+			"Ready-made dashboard, tables, and form layouts",
+			"Responsive sidebar navigation and layout system",
+			"Light and dark theme support",
+			"Structured for adding new admin modules quickly"
+		],
+		"stack": ["Angular 22", "PrimeNG", "Admin Dashboard"],
+		"price": 0,
+		"license": "free",
+		"repoUrl": "https://github.com/WebArtWork/ngx-prime-sakai.webart.work",
+		"demoUrl": "",
+		"previewImage": ""
+	}
+]

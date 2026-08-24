@@ -3,14 +3,16 @@ import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CanonicalService } from '@wawjs/ngx-default';
 import { LanguageService } from '@wawjs/ngx-translate';
+import { ButtonStylesComponent } from '@wawjs/ngx-ui';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { TopbarComponent } from './layouts/topbar/topbar.component';
 
 @Component({
 	selector: 'app-root',
-	imports: [RouterOutlet, TopbarComponent, FooterComponent],
+	imports: [RouterOutlet, TopbarComponent, FooterComponent, ButtonStylesComponent],
 	template: `
+		<wbutton-styles />
 		<div class="flex min-h-screen flex-col">
 			<app-topbar />
 			<main class="flex-1">

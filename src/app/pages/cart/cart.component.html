@@ -1,0 +1,121 @@
+<section class="mx-auto max-w-[var(--container)] px-4 py-8 sm:px-6 sm:py-12">
+	<h1 class="text-3xl font-semibold tracking-[-0.03em] text-[var(--c-text-strong)]" translate>
+		Кошик
+	</h1>
+
+	@if (cartService.count() === 0) {
+		<div
+			class="mt-8 rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-8 text-center"
+		>
+			<p class="text-base text-[var(--c-text)]" translate>Кошик порожній</p>
+			<a class="mt-5 inline-flex" wbutton type="primary" routerLink="/" translate>
+				Переглянути шаблони
+			</a>
+		</div>
+	} @else {
+		<div class="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)]">
+			<div class="space-y-4">
+				<h2
+					class="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--c-text-muted)]"
+					translate
+				>
+					Ваші шаблони
+				</h2>
+
+				@for (template of cartService.templates(); track template.slug) {
+					<article
+						class="flex items-center justify-between gap-4 rounded-[calc(var(--radius-card)*1.4)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-5"
+					>
+						<div>
+							<a
+								class="text-base font-semibold text-[var(--c-text-strong)] hover:text-[var(--c-primary)]"
+								[routerLink]="['/templates', template.slug]"
+							>
+								{{ template.name }}
+							</a>
+							<p class="mt-1 text-sm text-[var(--c-text-muted)]">
+								{{ template.tagline }}
+							</p>
+						</div>
+
+						<div class="flex shrink-0 items-center gap-4">
+							<span class="text-sm font-semibold text-[var(--c-primary)]" translate>
+								Безкоштовно
+							</span>
+							<button
+								wbutton
+								type="light"
+								(wClick)="cartService.remove(template.slug)"
+								translate
+							>
+								Прибрати
+							</button>
+						</div>
+					</article>
+				}
+
+				<div
+					class="flex items-center justify-between rounded-[calc(var(--radius-card)*1.4)] border border-[var(--c-border)] bg-[color:color-mix(in_srgb,var(--c-bg-primary)_78%,transparent)] p-5"
+				>
+					<span
+						class="text-sm font-semibold uppercase tracking-[0.14em] text-[var(--c-text-muted)]"
+						translate
+					>
+						Разом
+					</span>
+					<span class="text-lg font-semibold text-[var(--c-text-strong)]" translate>
+						Безкоштовно
+					</span>
+				</div>
+
+				<p class="text-sm text-[var(--c-text-muted)]" translate>
+					Платні шаблони та оформлення замовлення скоро з'являться.
+				</p>
+			</div>
+
+			<aside
+				class="h-fit rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-6 shadow-[var(--shadow-sm)]"
+			>
+				<h2 class="text-lg font-semibold text-[var(--c-text-strong)]" translate>
+					Отримати безкоштовні посилання для завантаження
+				</h2>
+				<p class="mt-2 text-sm leading-6 text-[var(--c-text-muted)]" translate>
+					Вкажіть email, і ми надішлемо посилання на репозиторій та деталі шаблону.
+				</p>
+
+				@if (!submitted()) {
+					<form class="mt-5 space-y-4" (submit)="$event.preventDefault(); submit()">
+						<winput type="email" [label]="emailLabel()" [(wModel)]="email" />
+						<button wbutton type="primary" [disabled]="submitting()" translate>
+							Надіслати
+						</button>
+					</form>
+				} @else {
+					<div class="mt-5 space-y-3">
+						<p class="text-sm font-medium text-[var(--c-text-strong)]" translate>
+							Дякуємо! Ось ваші посилання на завантаження:
+						</p>
+
+						@for (template of cartService.templates(); track template.slug) {
+							<div class="space-y-1">
+								<p class="text-sm font-semibold text-[var(--c-text-strong)]">
+									{{ template.name }}
+								</p>
+								@if (template.repoUrl) {
+									<wlink
+										type="url"
+										[value]="template.repoUrl"
+										label="GitHub"
+										target="_blank"
+										rel="noopener"
+										icon="code"
+									/>
+								}
+							</div>
+						}
+					</div>
+				}
+			</aside>
+		</div>
+	}
+</section>

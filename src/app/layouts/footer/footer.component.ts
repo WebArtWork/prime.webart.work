@@ -24,6 +24,10 @@ export class FooterComponent {
 			label: 'Головна',
 			path: '/',
 		},
+		{
+			label: 'Кошик',
+			path: '/cart',
+		},
 	]);
 	protected readonly companyImage = computed(() => this.company().image || 'logo.png');
 	protected readonly companyImageAlt = computed(() =>

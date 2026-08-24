@@ -18,13 +18,23 @@
 				priority
 			/>
 			@if (company().name) {
-				<span class="hidden text-sm font-semibold tracking-[0.16em] text-[var(--c-text-strong)] sm:inline">
+				<span
+					class="hidden text-sm font-semibold tracking-[0.16em] text-[var(--c-text-strong)] sm:inline"
+				>
 					{{ company().name }}
 				</span>
 			}
 		</a>
 
 		<div class="flex items-center gap-2">
+			<material-icon
+				class="theme-focus inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--c-border)] bg-[var(--c-bg-primary)] text-[var(--c-text-strong)] hover:bg-[var(--c-bg-tertiary)]"
+				routerLink="/cart"
+				icon="shopping_cart"
+				[ariaLabel]="cartLabel()"
+				[counter]="cartService.count()"
+			/>
+
 			<div
 				class="relative flex items-center gap-1 rounded-full border border-[var(--c-border)] bg-[var(--c-bg-primary)] p-1 shadow-[var(--shadow-sm)]"
 			>
