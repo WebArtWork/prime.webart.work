@@ -59,50 +59,97 @@
 				>
 					Ліцензія
 				</p>
-				<p class="mt-2 text-2xl font-semibold text-[var(--c-text-strong)]">
-					@if (template().license === 'free') {
-						<span translate>Безкоштовно</span>
-					} @else {
-						{{ template().price }}
-					}
-				</p>
 
-				<div class="mt-5 flex flex-col gap-3">
-					@if (cartService.has(template().slug)) {
-						<button wbutton type="light" [disabled]="true" translate>У кошику</button>
-					} @else {
-						<button
+				@if (template().license === 'free') {
+					<p class="mt-2 text-2xl font-semibold text-[var(--c-text-strong)]" translate>
+						Безкоштовно
+					</p>
+
+					<div class="mt-5 flex flex-col gap-3">
+						@if (template().repoUrl) {
+							<wlink
+								type="url"
+								[value]="template().repoUrl"
+								label="View on GitHub"
+								target="_blank"
+								rel="noopener"
+								icon="code"
+							/>
+						}
+
+						<a
 							wbutton
-							type="primary"
-							(wClick)="cartService.add(template().slug)"
+							type="secondary"
+							[routerLink]="['/templates', template().slug, 'guide']"
 							translate
 						>
-							Додати в кошик
-						</button>
-					}
+							Getting started
+						</a>
 
-					@if (template().repoUrl) {
-						<wlink
-							type="url"
-							[value]="template().repoUrl"
-							[label]="repoLabel()"
-							target="_blank"
-							rel="noopener"
-							icon="code"
-						/>
-					}
+						@if (template().demoUrl) {
+							<wlink
+								type="url"
+								[value]="template().demoUrl"
+								[label]="demoLabel()"
+								target="_blank"
+								rel="noopener"
+								icon="open_in_new"
+							/>
+						}
+					</div>
+				} @else {
+					<div class="mt-3 flex flex-col gap-2">
+						@for (tier of template().licenses; track tier.type) {
+							<label
+								class="theme-focus flex cursor-pointer items-center justify-between gap-3 rounded-[var(--radius-card)] border border-[var(--c-border)] px-3 py-2 text-sm"
+							>
+								<span class="flex items-center gap-2">
+									<input
+										type="radio"
+										name="licenseType"
+										[value]="tier.type"
+										[checked]="selectedLicenseType() === tier.type"
+										(change)="selectLicenseType(tier.type)"
+									/>
+									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
+								</span>
+								<span class="font-semibold text-[var(--c-text-strong)]">${{ tier.price }}</span>
+							</label>
+						}
+					</div>
 
-					@if (template().demoUrl) {
-						<wlink
-							type="url"
-							[value]="template().demoUrl"
-							[label]="demoLabel()"
-							target="_blank"
-							rel="noopener"
-							icon="open_in_new"
-						/>
-					}
-				</div>
+					<div class="mt-5 flex flex-col gap-3">
+						@if (cartService.has(template().slug)) {
+							<a wbutton type="light" [routerLink]="['/cart']" translate>У кошику</a>
+						} @else {
+							<button wbutton type="primary" (wClick)="addToCart()" translate>
+								Додати в кошик
+							</button>
+						}
+
+						@if (template().repoUrl) {
+							<wlink
+								type="url"
+								[value]="template().repoUrl"
+								[label]="repoLabel()"
+								target="_blank"
+								rel="noopener"
+								icon="code"
+							/>
+						}
+
+						@if (template().demoUrl) {
+							<wlink
+								type="url"
+								[value]="template().demoUrl"
+								[label]="demoLabel()"
+								target="_blank"
+								rel="noopener"
+								icon="open_in_new"
+							/>
+						}
+					</div>
+				}
 			</aside>
 		</div>
 	</section>

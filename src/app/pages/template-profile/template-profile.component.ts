@@ -1,5 +1,5 @@
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MetaService } from '@wawjs/ngx-core';
 import { TranslateDirective, TranslateService } from '@wawjs/ngx-translate';
@@ -38,6 +38,11 @@ export class TemplateProfileComponent {
 
 	protected readonly found = computed(() => !!this.template().slug);
 
+	private readonly _selectedLicenseType = signal<string | null>(null);
+	protected readonly selectedLicenseType = computed(
+		() => this._selectedLicenseType() ?? this.template().licenses[0]?.type ?? '',
+	);
+
 	constructor() {
 		effect(() => {
 			const template = this.template();
@@ -51,5 +56,24 @@ export class TemplateProfileComponent {
 				description: template.tagline,
 			});
 		});
+
+		effect(() => {
+			this.template();
+			this._selectedLicenseType.set(null);
+		});
+	}
+
+	protected selectLicenseType(type: string) {
+		this._selectedLicenseType.set(type);
+	}
+
+	protected addToCart() {
+		const template = this.template();
+
+		if (template.licenses.length === 0) {
+			return;
+		}
+
+		this.cartService.add(template.slug, this.selectedLicenseType());
 	}
 }

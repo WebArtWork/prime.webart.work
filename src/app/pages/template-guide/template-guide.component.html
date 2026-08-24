@@ -1,0 +1,70 @@
+@if (found()) {
+	<section class="mx-auto max-w-[var(--container)] px-4 py-8 sm:px-6 sm:py-12">
+		<a
+			class="theme-focus inline-flex items-center gap-1 text-sm font-medium text-[var(--c-text-muted)] hover:text-[var(--c-primary)]"
+			[routerLink]="['/templates', template().slug]"
+			translate
+		>
+			&larr; Back to template
+		</a>
+
+		<h1
+			class="mt-6 text-3xl font-semibold tracking-[-0.03em] text-[var(--c-text-strong)] sm:text-4xl"
+		>
+			{{ template().name }}
+		</h1>
+		<p class="mt-2 text-base leading-7 text-[var(--c-text-muted)]" translate>Getting started</p>
+
+		<ol class="mt-8 max-w-2xl space-y-6">
+			<li>
+				<p class="text-sm font-semibold text-[var(--c-text-strong)]" translate>
+					1. Clone the repository
+				</p>
+				<pre
+					class="mt-2 overflow-x-auto rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-4 text-sm text-[var(--c-text)]"
+				><code>git clone {{ template().repoUrl }}
+cd {{ repoName() }}</code></pre>
+			</li>
+
+			<li>
+				<p class="text-sm font-semibold text-[var(--c-text-strong)]" translate>
+					2. Install dependencies
+				</p>
+				<pre
+					class="mt-2 overflow-x-auto rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-4 text-sm text-[var(--c-text)]"
+				><code>npm install</code></pre>
+			</li>
+
+			<li>
+				<p class="text-sm font-semibold text-[var(--c-text-strong)]" translate>
+					3. Run it locally
+				</p>
+				<pre
+					class="mt-2 overflow-x-auto rounded-[var(--radius-card)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-4 text-sm text-[var(--c-text)]"
+				><code>npm start</code></pre>
+			</li>
+		</ol>
+
+		@if (template().repoUrl) {
+			<div class="mt-8">
+				<wlink
+					type="url"
+					[value]="template().repoUrl"
+					label="View on GitHub"
+					target="_blank"
+					rel="noopener"
+					icon="code"
+				/>
+			</div>
+		}
+	</section>
+} @else {
+	<section class="mx-auto max-w-[var(--container)] px-4 py-16 text-center sm:px-6">
+		<h1 class="text-2xl font-semibold text-[var(--c-text-strong)]" translate>
+			Шаблон не знайдено
+		</h1>
+		<a class="mt-4 inline-flex" wbutton type="primary" routerLink="/" translate>
+			Назад до каталогу
+		</a>
+	</section>
+}

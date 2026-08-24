@@ -36,5 +36,25 @@
 		"repoUrl": "https://github.com/WebArtWork/ngx-prime-sakai.webart.work",
 		"demoUrl": "",
 		"previewImage": ""
+	},
+	{
+		"slug": "ngx-prime-demo-paid",
+		"name": "Ngx Prime Demo (Placeholder)",
+		"tagline": "Demo product used to exercise the paid license-tier purchase flow — not a real template",
+		"description": "Placeholder paid template used only to test the license-tier picker, cart, and checkout-stub flow end-to-end. Not a real sellable product.",
+		"features": [
+			"Demonstrates single-domain vs all-subdomains license tiers",
+			"Exercises the paid cart and checkout-stub flow"
+		],
+		"stack": ["Angular 22", "Demo"],
+		"price": 0,
+		"license": "paid",
+		"licenses": [
+			{ "type": "single-domain", "label": "Single domain", "price": 49 },
+			{ "type": "all-subdomains", "label": "All subdomains", "price": 149 }
+		],
+		"repoUrl": "",
+		"demoUrl": "",
+		"previewImage": ""
 	}
 ]

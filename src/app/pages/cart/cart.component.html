@@ -22,34 +22,54 @@
 					Ваші шаблони
 				</h2>
 
-				@for (template of cartService.templates(); track template.slug) {
+				@for (item of cartService.lineItems(); track item.slug) {
 					<article
-						class="flex items-center justify-between gap-4 rounded-[calc(var(--radius-card)*1.4)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-5"
+						class="rounded-[calc(var(--radius-card)*1.4)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-5"
 					>
-						<div>
-							<a
-								class="text-base font-semibold text-[var(--c-text-strong)] hover:text-[var(--c-primary)]"
-								[routerLink]="['/templates', template.slug]"
-							>
-								{{ template.name }}
-							</a>
-							<p class="mt-1 text-sm text-[var(--c-text-muted)]">
-								{{ template.tagline }}
-							</p>
+						<div class="flex items-center justify-between gap-4">
+							<div>
+								<a
+									class="text-base font-semibold text-[var(--c-text-strong)] hover:text-[var(--c-primary)]"
+									[routerLink]="['/templates', item.slug]"
+								>
+									{{ item.name }}
+								</a>
+								<p class="mt-1 text-sm text-[var(--c-text-muted)]">
+									{{ item.tagline }}
+								</p>
+							</div>
+
+							<div class="flex shrink-0 items-center gap-4">
+								<span class="text-sm font-semibold text-[var(--c-primary)]">
+									${{ item.price }}
+								</span>
+								<button
+									wbutton
+									type="light"
+									(wClick)="cartService.remove(item.slug)"
+									translate
+								>
+									Прибрати
+								</button>
+							</div>
 						</div>
 
-						<div class="flex shrink-0 items-center gap-4">
-							<span class="text-sm font-semibold text-[var(--c-primary)]" translate>
-								Безкоштовно
-							</span>
-							<button
-								wbutton
-								type="light"
-								(wClick)="cartService.remove(template.slug)"
-								translate
-							>
-								Прибрати
-							</button>
+						<div class="mt-4 flex flex-wrap gap-2">
+							@for (tier of licensesFor(item.slug); track tier.type) {
+								<label
+									class="theme-focus flex cursor-pointer items-center gap-2 rounded-full border border-[var(--c-border)] px-3 py-1.5 text-sm"
+								>
+									<input
+										type="radio"
+										[name]="'license-' + item.slug"
+										[value]="tier.type"
+										[checked]="item.licenseType === tier.type"
+										(change)="cartService.setLicenseType(item.slug, tier.type)"
+									/>
+									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
+									<span class="font-semibold text-[var(--c-text-strong)]">${{ tier.price }}</span>
+								</label>
+							}
 						</div>
 					</article>
 				}
@@ -63,58 +83,23 @@
 					>
 						Разом
 					</span>
-					<span class="text-lg font-semibold text-[var(--c-text-strong)]" translate>
-						Безкоштовно
+					<span class="text-lg font-semibold text-[var(--c-text-strong)]">
+						${{ cartService.total() }}
 					</span>
 				</div>
-
-				<p class="text-sm text-[var(--c-text-muted)]" translate>
-					Платні шаблони та оформлення замовлення скоро з'являться.
-				</p>
 			</div>
 
 			<aside
 				class="h-fit rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-6 shadow-[var(--shadow-sm)]"
 			>
-				<h2 class="text-lg font-semibold text-[var(--c-text-strong)]" translate>
-					Отримати безкоштовні посилання для завантаження
-				</h2>
+				<h2 class="text-lg font-semibold text-[var(--c-text-strong)]" translate>Оформлення</h2>
 				<p class="mt-2 text-sm leading-6 text-[var(--c-text-muted)]" translate>
-					Вкажіть email, і ми надішлемо посилання на репозиторій та деталі шаблону.
+					Оплата скоро з'явиться. Оформлення замовлення поки що недоступне.
 				</p>
 
-				@if (!submitted()) {
-					<form class="mt-5 space-y-4" (submit)="$event.preventDefault(); submit()">
-						<winput type="email" [label]="emailLabel()" [(wModel)]="email" />
-						<button wbutton type="primary" [disabled]="submitting()" translate>
-							Надіслати
-						</button>
-					</form>
-				} @else {
-					<div class="mt-5 space-y-3">
-						<p class="text-sm font-medium text-[var(--c-text-strong)]" translate>
-							Дякуємо! Ось ваші посилання на завантаження:
-						</p>
-
-						@for (template of cartService.templates(); track template.slug) {
-							<div class="space-y-1">
-								<p class="text-sm font-semibold text-[var(--c-text-strong)]">
-									{{ template.name }}
-								</p>
-								@if (template.repoUrl) {
-									<wlink
-										type="url"
-										[value]="template.repoUrl"
-										label="GitHub"
-										target="_blank"
-										rel="noopener"
-										icon="code"
-									/>
-								}
-							</div>
-						}
-					</div>
-				}
+				<button wbutton type="light" class="mt-5 w-full" [disabled]="true" translate>
+					Checkout — coming soon
+				</button>
 			</aside>
 		</div>
 	}

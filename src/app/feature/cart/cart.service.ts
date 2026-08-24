@@ -1,7 +1,7 @@
 import { computed, inject, Service, signal } from '@angular/core';
 import { StoreService } from '@wawjs/ngx-core';
 import { getTemplateBySlug } from '../template/template.data';
-import { CartItem } from './cart.interface';
+import { CartItem, CartLineItem } from './cart.interface';
 
 const CART_STORE_KEY = 'cart';
 
@@ -9,13 +9,13 @@ const CART_STORE_KEY = 'cart';
 export class CartService {
 	readonly items = signal<CartItem[]>([]);
 	readonly count = computed(() => this.items().length);
-	readonly templates = computed(() =>
+	readonly lineItems = computed<CartLineItem[]>(() =>
 		this.items()
-			.map((item) => getTemplateBySlug(item.slug))
-			.filter((template) => template !== undefined),
+			.map((item) => this._toLineItem(item))
+			.filter((lineItem): lineItem is CartLineItem => lineItem !== undefined),
 	);
 	readonly total = computed(() =>
-		this.templates().reduce((sum, template) => sum + template.price, 0),
+		this.lineItems().reduce((sum, lineItem) => sum + lineItem.price, 0),
 	);
 
 	private readonly _store = inject(StoreService);
@@ -28,12 +28,19 @@ export class CartService {
 		return this.items().some((item) => item.slug === slug);
 	}
 
-	add(slug: string) {
+	add(slug: string, licenseType: string) {
 		if (this.has(slug)) {
 			return;
 		}
 
-		this.items.update((items) => [...items, { slug }]);
+		this.items.update((items) => [...items, { slug, licenseType }]);
+		void this._persist();
+	}
+
+	setLicenseType(slug: string, licenseType: string) {
+		this.items.update((items) =>
+			items.map((item) => (item.slug === slug ? { ...item, licenseType } : item)),
+		);
 		void this._persist();
 	}
 
@@ -47,11 +54,33 @@ export class CartService {
 		void this._persist();
 	}
 
+	private _toLineItem(item: CartItem): CartLineItem | undefined {
+		const template = getTemplateBySlug(item.slug);
+
+		if (!template || template.licenses.length === 0) {
+			return undefined;
+		}
+
+		const tier =
+			template.licenses.find((candidate) => candidate.type === item.licenseType) ??
+			template.licenses[0];
+
+		return {
+			slug: template.slug,
+			name: template.name,
+			tagline: template.tagline,
+			repoUrl: template.repoUrl,
+			licenseType: tier.type,
+			licenseLabel: tier.label,
+			price: tier.price,
+		};
+	}
+
 	private async _restore() {
 		const stored = await this._store.getJson<CartItem[]>(CART_STORE_KEY);
 
 		if (Array.isArray(stored)) {
-			this.items.set(stored.filter((item) => !!getTemplateBySlug(item.slug)));
+			this.items.set(stored.filter((item) => !!this._toLineItem(item)));
 		}
 	}
 

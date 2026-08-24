@@ -31,6 +31,19 @@ export const routes: Routes = [
 			),
 	},
 	{
+		path: 'templates/:slug/guide',
+		data: {
+			meta: {
+				title: 'Getting started',
+				description: 'Clone and run this template locally.',
+			},
+		},
+		loadComponent: () =>
+			import('./pages/template-guide/template-guide.component').then(
+				(m) => m.TemplateGuideComponent,
+			),
+	},
+	{
 		path: 'cart',
 		data: {
 			meta: {

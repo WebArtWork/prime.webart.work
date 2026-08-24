@@ -1,5 +1,5 @@
 import templatesData from '../../../data/template/templates.json';
-import { Template, TemplateLicense } from './template.interface';
+import { Template, TemplateLicenseTier } from './template.interface';
 
 type RawTemplate = Partial<Template>;
 
@@ -10,6 +10,9 @@ export function getTemplateBySlug(slug: string): Template | undefined {
 }
 
 function _normalizeTemplate(raw: RawTemplate): Template {
+	const licenses = _licenseTiersOrFallback(raw.licenses);
+	const license = licenses.length > 0 ? 'paid' : 'free';
+
 	return {
 		slug: _stringOrFallback(raw.slug),
 		name: _stringOrFallback(raw.name),
@@ -17,16 +20,34 @@ function _normalizeTemplate(raw: RawTemplate): Template {
 		description: _stringOrFallback(raw.description),
 		features: _stringArrayOrFallback(raw.features),
 		stack: _stringArrayOrFallback(raw.stack),
-		price: typeof raw.price === 'number' && raw.price >= 0 ? raw.price : 0,
-		license: _licenseOrFallback(raw.license),
+		price: license === 'paid' ? Math.min(...licenses.map((tier) => tier.price)) : 0,
+		license,
+		licenses,
 		repoUrl: _stringOrFallback(raw.repoUrl),
 		demoUrl: _stringOrFallback(raw.demoUrl),
 		previewImage: _stringOrFallback(raw.previewImage),
 	};
 }
 
-function _licenseOrFallback(value: TemplateLicense | undefined): TemplateLicense {
-	return value === 'paid' ? 'paid' : 'free';
+function _licenseTiersOrFallback(
+	value: TemplateLicenseTier[] | null | undefined,
+): TemplateLicenseTier[] {
+	return Array.isArray(value)
+		? value
+				.filter(
+					(tier): tier is TemplateLicenseTier =>
+						!!tier &&
+						typeof tier.type === 'string' &&
+						tier.type.trim().length > 0 &&
+						typeof tier.price === 'number' &&
+						tier.price >= 0,
+				)
+				.map((tier) => ({
+					type: tier.type.trim(),
+					label: _stringOrFallback(tier.label, tier.type.trim()),
+					price: tier.price,
+				}))
+		: [];
 }
 
 function _stringOrFallback(value: string | null | undefined, fallback = ''): string {

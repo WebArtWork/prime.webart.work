@@ -8,6 +8,11 @@ export const serverRoutes: ServerRoute[] = [
 		getPrerenderParams: async () => templates.map((template) => ({ slug: template.slug })),
 	},
 	{
+		path: 'templates/:slug/guide',
+		renderMode: RenderMode.Prerender,
+		getPrerenderParams: async () => templates.map((template) => ({ slug: template.slug })),
+	},
+	{
 		path: '**',
 		renderMode: RenderMode.Prerender,
 	},

@@ -23,13 +23,13 @@ Free templates should never go through cart/checkout. Replace the current "add t
 email-capture flow for `license: 'free'` templates with two plain links, shown directly on the
 landing card and the template-profile page:
 
-- [ ] "View on GitHub" — links straight to `template.repoUrl`.
-- [ ] "Getting started" / usage guide — links to a new per-template guide page
+- [x] "View on GitHub" — links straight to `template.repoUrl`.
+- [x] "Getting started" / usage guide — links to a new per-template guide page
   (e.g. `/templates/:slug/guide`, or an external doc if that's easier to maintain) that walks a
   developer through cloning and running the template. Content TBD per template.
-- [ ] Remove the cart/email-capture UI entirely for free templates: no "Add to cart", no
+- [x] Remove the cart/email-capture UI entirely for free templates: no "Add to cart", no
   `CartService.add`, no email form. `CartService` and `/cart` become paid-only.
-- [ ] Clean up now-unused pieces once free templates stop touching the cart: re-check whether
+- [x] Clean up now-unused pieces once free templates stop touching the cart: re-check whether
   `ContactService`'s free-download email flow in `cart.component.ts` is still needed at all, or
   whether the cart page becomes purely a paid-checkout page.
 
@@ -37,7 +37,7 @@ landing card and the template-profile page:
 
 Introduce real per-template licensing with two tiers, sold per template:
 
-- [ ] Extend the `Template` data model (`template.interface.ts`, `templates.json`,
+- [x] Extend the `Template` data model (`template.interface.ts`, `templates.json`,
   `template.data.ts`) to support multiple license tiers per template, e.g.:
   ```json
   "licenses": [
@@ -47,13 +47,13 @@ Introduce real per-template licensing with two tiers, sold per template:
   ```
   Keep `license: 'free' | 'paid'` (or derive it from whether `licenses` is empty) so free templates
   stay on the simple GitHub+guide flow above.
-- [ ] Add one fake paid template to `templates.json` purely to exercise this flow end-to-end —
+- [x] Add one fake paid template to `templates.json` purely to exercise this flow end-to-end —
   clearly marked as a placeholder/demo product, not a real sellable template. Price the two tiers at
   $49 (single domain) / $149 (all subdomains), per the agreed placeholder pricing.
-- [ ] Template-profile page: for a paid template, replace the single "Add to cart" button with a
+- [x] Template-profile page: for a paid template, replace the single "Add to cart" button with a
   license-tier picker (radio/select between the tiers) before adding to cart, so the cart item
   remembers which tier was chosen.
-- [ ] Cart page: show the selected license tier and its price per line item, allow changing the tier,
+- [x] Cart page: show the selected license tier and its price per line item, allow changing the tier,
   and compute a real order total across paid items (no longer always "Free").
 - [ ] Checkout step: **only plan this, don't implement yet** — payment processor and flow to be
   decided in a future session before any real integration work starts. Until then, keep the

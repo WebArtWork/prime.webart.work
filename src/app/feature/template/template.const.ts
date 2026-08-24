@@ -9,6 +9,7 @@ export const EMPTY_TEMPLATE: Template = {
 	stack: [],
 	price: 0,
 	license: 'free',
+	licenses: [],
 	repoUrl: '',
 	demoUrl: '',
 	previewImage: '',
