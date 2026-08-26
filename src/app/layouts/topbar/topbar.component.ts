@@ -1,10 +1,11 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LanguageService, TranslateDirective, TranslateService } from '@wawjs/ngx-translate';
 import { Theme } from '@wawjs/ngx-prime/config';
 import { Icon } from '@wawjs/ngx-prime/icon';
 import { OverlayBadge } from '@wawjs/ngx-prime/overlaybadge';
+import { Popover } from '@wawjs/ngx-prime/popover';
 import type { Language } from '@wawjs/ngx-translate';
 import type { AppLanguage } from '../../../environments/environment.prod';
 import { CartService } from '../../feature/cart/cart.service';
@@ -12,7 +13,7 @@ import { CompanyService } from '../../feature/company/company.service';
 
 @Component({
 	selector: 'app-topbar',
-	imports: [NgOptimizedImage, RouterLink, TranslateDirective, Icon, OverlayBadge],
+	imports: [NgOptimizedImage, RouterLink, TranslateDirective, Icon, OverlayBadge, Popover],
 	templateUrl: './topbar.component.html',
 	styleUrl: './topbar.component.scss',
 })
@@ -23,13 +24,14 @@ export class TopbarComponent {
 	private readonly _companyService = inject(CompanyService);
 	private readonly _router = inject(Router);
 
+	private readonly _languagePopover = viewChild<Popover>('languagePopover');
+
 	protected readonly cartService = inject(CartService);
 	protected readonly cartLabel = computed(() => {
 		this.activeLanguage();
 		return this._translateService.translate('Кошик')();
 	});
 	protected readonly mode = computed(() => this._themeService.mode() ?? 'light');
-	protected readonly languageMenuOpen = signal(false);
 	protected readonly languages = computed(() =>
 		this._languageService.languages().map((language) => _toAppLanguage(language)),
 	);
@@ -38,9 +40,7 @@ export class TopbarComponent {
 	protected readonly currentLanguage = computed(() =>
 		_toAppLanguage(this._languageService.getLanguage(this.activeLanguage())),
 	);
-	protected readonly toggleIcon = computed(() =>
-		this.mode() === 'dark' ? 'light_mode' : 'dark_mode',
-	);
+	protected readonly toggleIcon = computed(() => (this.mode() === 'dark' ? 'sun' : 'moon'));
 	protected readonly toggleLabel = computed(() => {
 		this.activeLanguage();
 		return this.mode() === 'dark'
@@ -65,17 +65,16 @@ export class TopbarComponent {
 		const nextLanguage = this.getNextLanguage();
 		await this._translateService.setLanguage(nextLanguage.code);
 		await this._router.navigateByUrl(this._router.url);
-		this.languageMenuOpen.set(false);
 	}
 
-	protected toggleLanguageMenu() {
-		this.languageMenuOpen.update((open) => !open);
+	protected toggleLanguageMenu(event: Event) {
+		this._languagePopover()?.toggle(event);
 	}
 
 	protected async setLanguage(language: AppLanguage) {
 		await this._translateService.setLanguage(language.code);
 		await this._router.navigateByUrl(this._router.url);
-		this.languageMenuOpen.set(false);
+		this._languagePopover()?.hide();
 	}
 
 	protected getNextLanguage() {

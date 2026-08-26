@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateDirective } from '@wawjs/ngx-translate';
 import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { RadioButtonDirective } from '@wawjs/ngx-prime/radiobutton';
 import { getTemplateBySlug } from '../../feature/template/template.data';
 import { CartService } from '../../feature/cart/cart.service';
 
 @Component({
-	imports: [RouterLink, TranslateDirective, ButtonDirective],
+	imports: [FormsModule, RouterLink, TranslateDirective, ButtonDirective, RadioButtonDirective],
 	templateUrl: './cart.component.html',
 	styleUrl: './cart.component.scss',
 })

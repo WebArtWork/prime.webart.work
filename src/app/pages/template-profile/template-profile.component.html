@@ -19,11 +19,7 @@
 
 				<div class="mt-4 flex flex-wrap gap-2">
 					@for (tech of template().stack; track tech) {
-						<span
-							class="inline-flex items-center rounded-full border border-[var(--c-border)] px-2.5 py-1 text-xs font-medium text-[var(--c-text-muted)]"
-						>
-							{{ tech }}
-						</span>
+						<p-chip [label]="tech" />
 					}
 				</div>
 
@@ -110,10 +106,11 @@
 								<span class="flex items-center gap-2">
 									<input
 										type="radio"
+										pRadioButton
 										name="licenseType"
 										[value]="tier.type"
-										[checked]="selectedLicenseType() === tier.type"
-										(change)="selectLicenseType(tier.type)"
+										[ngModel]="selectedLicenseType()"
+										(ngModelChange)="selectLicenseType($event)"
 									/>
 									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
 								</span>

@@ -1,16 +1,27 @@
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MetaService } from '@wawjs/ngx-core';
 import { TranslateDirective, TranslateService } from '@wawjs/ngx-translate';
 import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { Chip } from '@wawjs/ngx-prime/chip';
 import { Link } from '@wawjs/ngx-prime/link';
+import { RadioButtonDirective } from '@wawjs/ngx-prime/radiobutton';
 import { CartService } from '../../feature/cart/cart.service';
 import { EMPTY_TEMPLATE } from '../../feature/template/template.const';
 import { getTemplateBySlug } from '../../feature/template/template.data';
 
 @Component({
-	imports: [RouterLink, TranslateDirective, ButtonDirective, Link],
+	imports: [
+		FormsModule,
+		RouterLink,
+		TranslateDirective,
+		ButtonDirective,
+		Link,
+		Chip,
+		RadioButtonDirective,
+	],
 	templateUrl: './template-profile.component.html',
 	styleUrl: './template-profile.component.scss',
 })

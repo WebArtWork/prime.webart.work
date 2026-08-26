@@ -61,10 +61,13 @@
 								>
 									<input
 										type="radio"
+										pRadioButton
 										[name]="'license-' + item.slug"
 										[value]="tier.type"
-										[checked]="item.licenseType === tier.type"
-										(change)="cartService.setLicenseType(item.slug, tier.type)"
+										[ngModel]="item.licenseType"
+										(ngModelChange)="
+											cartService.setLicenseType(item.slug, $event)
+										"
 									/>
 									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
 									<span class="font-semibold text-[var(--c-text-strong)]"
