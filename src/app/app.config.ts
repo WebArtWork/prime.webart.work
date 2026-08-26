@@ -15,7 +15,7 @@ import {
 } from '@wawjs/ngx-default';
 import { provideNgxCore } from '@wawjs/ngx-core';
 import { provideTranslate } from '@wawjs/ngx-translate';
-import { provideNgxUi } from '@wawjs/ngx-ui';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { companyProfile } from './feature/company/company.data';
@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
 		provideNgxDefaultSeo({
 			siteUrl: companyProfile.siteUrl,
 		}),
-		provideNgxUi(),
+		provideNgxPrime(),
 		provideRouter(routes),
 		provideClientHydration(withEventReplay()),
 		provideTranslate({

@@ -3,13 +3,14 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MetaService } from '@wawjs/ngx-core';
 import { TranslateDirective, TranslateService } from '@wawjs/ngx-translate';
-import { ButtonDirective, LinkComponent } from '@wawjs/ngx-ui';
+import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { Link } from '@wawjs/ngx-prime/link';
 import { CartService } from '../../feature/cart/cart.service';
 import { EMPTY_TEMPLATE } from '../../feature/template/template.const';
 import { getTemplateBySlug } from '../../feature/template/template.data';
 
 @Component({
-	imports: [RouterLink, TranslateDirective, ButtonDirective, LinkComponent],
+	imports: [RouterLink, TranslateDirective, ButtonDirective, Link],
 	templateUrl: './template-profile.component.html',
 	styleUrl: './template-profile.component.scss',
 })

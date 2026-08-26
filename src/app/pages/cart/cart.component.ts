@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslateDirective } from '@wawjs/ngx-translate';
-import { ButtonDirective } from '@wawjs/ngx-ui';
+import { ButtonDirective } from '@wawjs/ngx-prime/button';
 import { getTemplateBySlug } from '../../feature/template/template.data';
 import { CartService } from '../../feature/cart/cart.service';
 

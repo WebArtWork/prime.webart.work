@@ -27,13 +27,14 @@
 		</a>
 
 		<div class="flex items-center gap-2">
-			<material-icon
+			<p-overlay-badge
 				class="theme-focus inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--c-border)] bg-[var(--c-bg-primary)] text-[var(--c-text-strong)] hover:bg-[var(--c-bg-tertiary)]"
-				routerLink="/cart"
-				icon="shopping_cart"
-				[ariaLabel]="cartLabel()"
-				[counter]="cartService.count()"
-			/>
+				severity="danger"
+				[value]="cartService.count()"
+				[badgeDisabled]="cartService.count() === 0"
+			>
+				<p-icon routerLink="/cart" icon="shopping-cart" [ariaLabel]="cartLabel()" />
+			</p-overlay-badge>
 
 			<div
 				class="relative flex items-center gap-1 rounded-full border border-[var(--c-border)] bg-[var(--c-bg-primary)] p-1 shadow-[var(--shadow-sm)]"

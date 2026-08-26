@@ -2,7 +2,9 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LanguageService, TranslateDirective, TranslateService } from '@wawjs/ngx-translate';
-import { MaterialComponent, ThemeService } from '@wawjs/ngx-ui';
+import { Theme } from '@wawjs/ngx-prime/config';
+import { Icon } from '@wawjs/ngx-prime/icon';
+import { OverlayBadge } from '@wawjs/ngx-prime/overlaybadge';
 import type { Language } from '@wawjs/ngx-translate';
 import type { AppLanguage } from '../../../environments/environment.prod';
 import { CartService } from '../../feature/cart/cart.service';
@@ -10,13 +12,13 @@ import { CompanyService } from '../../feature/company/company.service';
 
 @Component({
 	selector: 'app-topbar',
-	imports: [NgOptimizedImage, RouterLink, TranslateDirective, MaterialComponent],
+	imports: [NgOptimizedImage, RouterLink, TranslateDirective, Icon, OverlayBadge],
 	templateUrl: './topbar.component.html',
 	styleUrl: './topbar.component.scss',
 })
 export class TopbarComponent {
 	private readonly _translateService = inject(TranslateService);
-	private readonly _themeService = inject(ThemeService);
+	private readonly _themeService = inject(Theme);
 	private readonly _languageService = inject(LanguageService);
 	private readonly _companyService = inject(CompanyService);
 	private readonly _router = inject(Router);

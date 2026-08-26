@@ -3,12 +3,13 @@ import { Component, computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MetaService } from '@wawjs/ngx-core';
 import { TranslateDirective } from '@wawjs/ngx-translate';
-import { ButtonDirective, LinkComponent } from '@wawjs/ngx-ui';
+import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { Link } from '@wawjs/ngx-prime/link';
 import { EMPTY_TEMPLATE } from '../../feature/template/template.const';
 import { getTemplateBySlug } from '../../feature/template/template.data';
 
 @Component({
-	imports: [RouterLink, TranslateDirective, ButtonDirective, LinkComponent],
+	imports: [RouterLink, TranslateDirective, ButtonDirective, Link],
 	templateUrl: './template-guide.component.html',
 	styleUrl: './template-guide.component.scss',
 })

@@ -73,8 +73,8 @@
 
 					<div class="mt-6 flex flex-wrap items-center gap-3">
 						<a
-							wbutton
-							type="primary"
+							pButton
+							severity="primary"
 							[routerLink]="['/templates', template.slug]"
 							translate
 						>
@@ -84,8 +84,8 @@
 						@if (template.license === 'free') {
 							@if (template.repoUrl) {
 								<a
-									wbutton
-									type="secondary"
+									pButton
+									severity="secondary"
 									[href]="template.repoUrl"
 									target="_blank"
 									rel="noopener"
@@ -95,20 +95,22 @@
 							}
 
 							<a
-								wbutton
-								type="light"
+								pButton
+								severity="secondary"
 								[routerLink]="['/templates', template.slug, 'guide']"
 								translate
 							>
 								Getting started
 							</a>
 						} @else if (cartService.has(template.slug)) {
-							<a wbutton type="light" [routerLink]="['/cart']" translate>У кошику</a>
+							<a pButton severity="secondary" [routerLink]="['/cart']" translate
+								>У кошику</a
+							>
 						} @else {
 							<button
-								wbutton
-								type="secondary"
-								(wClick)="cartService.add(template.slug, template.licenses[0].type)"
+								pButton
+								severity="secondary"
+								(click)="cartService.add(template.slug, template.licenses[0].type)"
 								translate
 							>
 								Додати в кошик

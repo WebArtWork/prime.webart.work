@@ -47,14 +47,16 @@ cd {{ repoName() }}</code></pre>
 
 		@if (template().repoUrl) {
 			<div class="mt-8">
-				<wlink
+				<a
+					pLink
 					type="url"
 					[value]="template().repoUrl"
-					label="View on GitHub"
 					target="_blank"
 					rel="noopener"
-					icon="code"
-				/>
+					icon="pi pi-code"
+				>
+					View on GitHub
+				</a>
 			</div>
 		}
 	</section>
@@ -63,7 +65,7 @@ cd {{ repoName() }}</code></pre>
 		<h1 class="text-2xl font-semibold text-[var(--c-text-strong)]" translate>
 			Шаблон не знайдено
 		</h1>
-		<a class="mt-4 inline-flex" wbutton type="primary" routerLink="/" translate>
+		<a class="mt-4 inline-flex" pButton severity="primary" routerLink="/" translate>
 			Назад до каталогу
 		</a>
 	</section>

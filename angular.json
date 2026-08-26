@@ -57,8 +57,7 @@
 								"output": "/i18n/"
 							}
 						],
-						"styles": ["node_modules/@wawjs/ngx-ui/styles.css",
-					"src/styles.scss"],
+						"styles": ["src/styles.scss"],
 						"server": "src/main.server.ts",
 						"outputMode": "server",
 						"security": {

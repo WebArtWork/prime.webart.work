@@ -8,7 +8,7 @@
 			class="mt-8 rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-8 text-center"
 		>
 			<p class="text-base text-[var(--c-text)]" translate>Кошик порожній</p>
-			<a class="mt-5 inline-flex" wbutton type="primary" routerLink="/" translate>
+			<a class="mt-5 inline-flex" pButton severity="primary" routerLink="/" translate>
 				Переглянути шаблони
 			</a>
 		</div>
@@ -44,9 +44,9 @@
 									${{ item.price }}
 								</span>
 								<button
-									wbutton
-									type="light"
-									(wClick)="cartService.remove(item.slug)"
+									pButton
+									severity="secondary"
+									(click)="cartService.remove(item.slug)"
 									translate
 								>
 									Прибрати
@@ -67,7 +67,9 @@
 										(change)="cartService.setLicenseType(item.slug, tier.type)"
 									/>
 									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
-									<span class="font-semibold text-[var(--c-text-strong)]">${{ tier.price }}</span>
+									<span class="font-semibold text-[var(--c-text-strong)]"
+										>${{ tier.price }}</span
+									>
 								</label>
 							}
 						</div>
@@ -92,12 +94,20 @@
 			<aside
 				class="h-fit rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-6 shadow-[var(--shadow-sm)]"
 			>
-				<h2 class="text-lg font-semibold text-[var(--c-text-strong)]" translate>Оформлення</h2>
+				<h2 class="text-lg font-semibold text-[var(--c-text-strong)]" translate>
+					Оформлення
+				</h2>
 				<p class="mt-2 text-sm leading-6 text-[var(--c-text-muted)]" translate>
 					Оплата скоро з'явиться. Оформлення замовлення поки що недоступне.
 				</p>
 
-				<button wbutton type="light" class="mt-5 w-full" [disabled]="true" translate>
+				<button
+					pButton
+					severity="secondary"
+					class="mt-5 w-full"
+					[disabled]="true"
+					translate
+				>
 					Checkout — coming soon
 				</button>
 			</aside>

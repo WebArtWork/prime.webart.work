@@ -67,19 +67,21 @@
 
 					<div class="mt-5 flex flex-col gap-3">
 						@if (template().repoUrl) {
-							<wlink
+							<a
+								pLink
 								type="url"
 								[value]="template().repoUrl"
-								label="View on GitHub"
 								target="_blank"
 								rel="noopener"
-								icon="code"
-							/>
+								icon="pi pi-code"
+							>
+								View on GitHub
+							</a>
 						}
 
 						<a
-							wbutton
-							type="secondary"
+							pButton
+							severity="secondary"
 							[routerLink]="['/templates', template().slug, 'guide']"
 							translate
 						>
@@ -87,14 +89,16 @@
 						</a>
 
 						@if (template().demoUrl) {
-							<wlink
+							<a
+								pLink
 								type="url"
 								[value]="template().demoUrl"
-								[label]="demoLabel()"
 								target="_blank"
 								rel="noopener"
-								icon="open_in_new"
-							/>
+								icon="pi pi-external-link"
+							>
+								{{ demoLabel() }}
+							</a>
 						}
 					</div>
 				} @else {
@@ -113,40 +117,48 @@
 									/>
 									<span class="text-[var(--c-text)]">{{ tier.label }}</span>
 								</span>
-								<span class="font-semibold text-[var(--c-text-strong)]">${{ tier.price }}</span>
+								<span class="font-semibold text-[var(--c-text-strong)]"
+									>${{ tier.price }}</span
+								>
 							</label>
 						}
 					</div>
 
 					<div class="mt-5 flex flex-col gap-3">
 						@if (cartService.has(template().slug)) {
-							<a wbutton type="light" [routerLink]="['/cart']" translate>У кошику</a>
+							<a pButton severity="secondary" [routerLink]="['/cart']" translate
+								>У кошику</a
+							>
 						} @else {
-							<button wbutton type="primary" (wClick)="addToCart()" translate>
+							<button pButton severity="primary" (click)="addToCart()" translate>
 								Додати в кошик
 							</button>
 						}
 
 						@if (template().repoUrl) {
-							<wlink
+							<a
+								pLink
 								type="url"
 								[value]="template().repoUrl"
-								[label]="repoLabel()"
 								target="_blank"
 								rel="noopener"
-								icon="code"
-							/>
+								icon="pi pi-code"
+							>
+								{{ repoLabel() }}
+							</a>
 						}
 
 						@if (template().demoUrl) {
-							<wlink
+							<a
+								pLink
 								type="url"
 								[value]="template().demoUrl"
-								[label]="demoLabel()"
 								target="_blank"
 								rel="noopener"
-								icon="open_in_new"
-							/>
+								icon="pi pi-external-link"
+							>
+								{{ demoLabel() }}
+							</a>
 						}
 					</div>
 				}
@@ -158,7 +170,7 @@
 		<h1 class="text-2xl font-semibold text-[var(--c-text-strong)]" translate>
 			Шаблон не знайдено
 		</h1>
-		<a class="mt-4 inline-flex" wbutton type="primary" routerLink="/" translate>
+		<a class="mt-4 inline-flex" pButton severity="primary" routerLink="/" translate>
 			Назад до каталогу
 		</a>
 	</section>
