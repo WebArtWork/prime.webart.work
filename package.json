@@ -17,7 +17,7 @@
 		"@angular/ssr": "22.1.5",
 		"@wawjs/ngx-default": "22.0.2",
 		"@wawjs/ngx-core": "22.0.3",
-		"@wawjs/ngx-prime": "^22.0.3",
+		"@wawjs/ngx-prime": "^22.0.4",
 		"@wawjs/ngx-translate": "22.0.3",
 		"express": "5.2.1",
 		"primeicons": "^7.0.0",
