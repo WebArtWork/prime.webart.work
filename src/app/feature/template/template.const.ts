@@ -3,6 +3,7 @@ import { Template } from './template.interface';
 export const EMPTY_TEMPLATE: Template = {
 	slug: '',
 	name: '',
+	framework: 'ngx',
 	tagline: '',
 	description: '',
 	features: [],

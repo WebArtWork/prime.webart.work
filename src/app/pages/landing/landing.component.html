@@ -30,90 +30,116 @@
 			</p>
 		</section>
 
-		<div class="mt-8 grid gap-6 sm:grid-cols-2">
-			@for (template of templates; track template.slug) {
-				<article
-					class="flex flex-col justify-between rounded-[calc(var(--radius-card)*1.8)] border border-[var(--c-border)] bg-[var(--c-bg-secondary)] p-6 shadow-[var(--shadow-sm)]"
+		<div
+			class="framework-filter mt-8 flex flex-wrap items-center gap-4 rounded-[calc(var(--radius-card)*1.6)] border border-[color:color-mix(in_srgb,var(--c-border)_72%,transparent)] bg-[color:color-mix(in_srgb,var(--c-bg-secondary)_72%,transparent)] px-4 py-3 shadow-[var(--shadow-sm)] backdrop-blur-xl"
+		>
+			<span
+				class="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--c-text-muted)]"
+				translate
+			>
+				Фреймворк
+			</span>
+
+			<p-divider layout="vertical" class="hidden !h-6 sm:block" />
+
+			<div pSelectButton [(value)]="frameworkFilter" ariaLabel="Фреймворк">
+				@for (option of frameworkOptions; track option.value) {
+					<button pSelectButtonOption [value]="option.value" type="button">
+						{{ option.label }}
+					</button>
+				}
+			</div>
+		</div>
+
+		<div class="mt-6 grid gap-6 sm:grid-cols-2">
+			@for (template of filteredTemplates(); track template.slug) {
+				<p-card
+					class="template-card h-full cursor-pointer"
+					[routerLink]="['/templates', template.slug]"
 				>
-					<div>
-						<div class="flex items-start justify-between gap-3">
-							<h2 class="text-xl font-semibold text-[var(--c-text-strong)]">
-								{{ template.name }}
-							</h2>
+					<div class="flex h-full flex-col justify-between">
+						<div>
+							<div class="flex items-start justify-between gap-3">
+								<h2 class="text-xl font-semibold text-[var(--c-text-strong)]">
+									{{ template.name }}
+								</h2>
+								@if (template.license === 'free') {
+									<p-tag
+										class="shrink-0"
+										[rounded]="true"
+										severity="success"
+										translate
+									>
+										Безкоштовно
+									</p-tag>
+								} @else {
+									<p-tag class="shrink-0" [rounded]="true" severity="secondary">
+										from ${{ template.price }}
+									</p-tag>
+								}
+							</div>
+
+							<p class="mt-3 text-sm leading-6 text-[var(--c-text)]">
+								{{ template.tagline }}
+							</p>
+
+							<div class="mt-4 flex flex-wrap gap-2">
+								@for (tech of template.stack; track tech) {
+									<p-chip [label]="tech" />
+								}
+							</div>
+						</div>
+
+						<p-divider class="!my-5" />
+
+						<div class="flex flex-wrap items-center gap-3" (click)="$event.stopPropagation()">
+							<a
+								pButton
+								severity="primary"
+								[routerLink]="['/templates', template.slug]"
+								translate
+							>
+								Переглянути деталі
+							</a>
+
 							@if (template.license === 'free') {
-								<p-tag
-									class="shrink-0"
-									[rounded]="true"
-									severity="success"
-									translate
-								>
-									Безкоштовно
-								</p-tag>
-							} @else {
-								<p-tag class="shrink-0" [rounded]="true" severity="secondary">
-									from ${{ template.price }}
-								</p-tag>
-							}
-						</div>
+								@if (template.repoUrl) {
+									<a
+										pButton
+										severity="secondary"
+										[href]="template.repoUrl"
+										target="_blank"
+										rel="noopener"
+									>
+										View on GitHub
+									</a>
+								}
 
-						<p class="mt-3 text-sm leading-6 text-[var(--c-text)]">
-							{{ template.tagline }}
-						</p>
-
-						<div class="mt-4 flex flex-wrap gap-2">
-							@for (tech of template.stack; track tech) {
-								<p-chip [label]="tech" />
-							}
-						</div>
-					</div>
-
-					<div class="mt-6 flex flex-wrap items-center gap-3">
-						<a
-							pButton
-							severity="primary"
-							[routerLink]="['/templates', template.slug]"
-							translate
-						>
-							Переглянути деталі
-						</a>
-
-						@if (template.license === 'free') {
-							@if (template.repoUrl) {
 								<a
 									pButton
 									severity="secondary"
-									[href]="template.repoUrl"
-									target="_blank"
-									rel="noopener"
+									[routerLink]="['/templates', template.slug, 'guide']"
+									translate
 								>
-									View on GitHub
+									Getting started
 								</a>
+							} @else if (cartService.has(template.slug)) {
+								<a pButton severity="secondary" [routerLink]="['/cart']" translate
+									>У кошику</a
+								>
+							} @else {
+								<button
+									pButton
+									severity="secondary"
+									(click)="cartService.add(template.slug, template.licenses[0].type)"
+									translate
+								>
+									Додати в кошик
+								</button>
 							}
-
-							<a
-								pButton
-								severity="secondary"
-								[routerLink]="['/templates', template.slug, 'guide']"
-								translate
-							>
-								Getting started
-							</a>
-						} @else if (cartService.has(template.slug)) {
-							<a pButton severity="secondary" [routerLink]="['/cart']" translate
-								>У кошику</a
-							>
-						} @else {
-							<button
-								pButton
-								severity="secondary"
-								(click)="cartService.add(template.slug, template.licenses[0].type)"
-								translate
-							>
-								Додати в кошик
-							</button>
-						}
+						</div>
 					</div>
-				</article>
+				</p-card>
 			}
 		</div>
 	</div>

@@ -1,5 +1,5 @@
 import templatesData from '../../../data/template/templates.json';
-import { Template, TemplateLicenseTier } from './template.interface';
+import { Template, TemplateFramework, TemplateLicenseTier } from './template.interface';
 
 type RawTemplate = Partial<Template>;
 
@@ -13,9 +13,12 @@ function _normalizeTemplate(raw: RawTemplate): Template {
 	const licenses = _licenseTiersOrFallback(raw.licenses);
 	const license = licenses.length > 0 ? 'paid' : 'free';
 
+	const slug = _stringOrFallback(raw.slug);
+
 	return {
-		slug: _stringOrFallback(raw.slug),
+		slug,
 		name: _stringOrFallback(raw.name),
+		framework: _frameworkOrFallback(raw.framework, slug),
 		tagline: _stringOrFallback(raw.tagline),
 		description: _stringOrFallback(raw.description),
 		features: _stringArrayOrFallback(raw.features),
@@ -48,6 +51,25 @@ function _licenseTiersOrFallback(
 					price: tier.price,
 				}))
 		: [];
+}
+
+function _frameworkOrFallback(
+	value: TemplateFramework | null | undefined,
+	slug: string,
+): TemplateFramework {
+	if (value === 'ngx' || value === 'react' || value === 'vue') {
+		return value;
+	}
+
+	if (slug.startsWith('react-')) {
+		return 'react';
+	}
+
+	if (slug.startsWith('vue-')) {
+		return 'vue';
+	}
+
+	return 'ngx';
 }
 
 function _stringOrFallback(value: string | null | undefined, fallback = ''): string {

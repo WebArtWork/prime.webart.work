@@ -1,4 +1,5 @@
 export type TemplateLicense = 'free' | 'paid';
+export type TemplateFramework = 'ngx' | 'react' | 'vue';
 
 export interface TemplateLicenseTier {
 	type: string;
@@ -9,6 +10,7 @@ export interface TemplateLicenseTier {
 export interface Template {
 	slug: string;
 	name: string;
+	framework: TemplateFramework;
 	tagline: string;
 	description: string;
 	features: string[];

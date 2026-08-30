@@ -2,6 +2,7 @@
 	{
 		"slug": "ngx-prime-default",
 		"name": "Ngx Prime Default",
+		"framework": "ngx",
 		"tagline": "SSR-ready Angular 22 landing starter with Tailwind and signal-based theming",
 		"description": "A prerender-first Angular 22 starter built for fast marketing and business landing pages. Ships with SSR/prerender wired up, Tailwind CSS, light/dark theming on CSS variables, and a bootstrap layer for company data and multilingual content.",
 		"features": [
@@ -21,6 +22,7 @@
 	{
 		"slug": "ngx-prime-sakai",
 		"name": "Ngx Prime Sakai",
+		"framework": "ngx",
 		"tagline": "Angular 22 admin dashboard, forked from the PrimeTek Sakai template",
 		"description": "An Angular 22 admin dashboard template forked from PrimeTek's Sakai design, rebuilt on PrimeNG for internal tools, back-office panels, and client dashboards.",
 		"features": [
@@ -34,27 +36,71 @@
 		"price": 0,
 		"license": "free",
 		"repoUrl": "https://github.com/WebArtWork/ngx-prime-sakai.webart.work",
-		"demoUrl": "",
+		"demoUrl": "https://ngx-prime-sakai.webart.work",
 		"previewImage": ""
 	},
 	{
-		"slug": "ngx-prime-demo-paid",
-		"name": "Ngx Prime Demo (Placeholder)",
-		"tagline": "Demo product used to exercise the paid license-tier purchase flow — not a real template",
-		"description": "Placeholder paid template used only to test the license-tier picker, cart, and checkout-stub flow end-to-end. Not a real sellable product.",
+		"slug": "react-prime-sakai",
+		"name": "React Prime Sakai",
+		"framework": "react",
+		"tagline": "React admin dashboard, forked from the PrimeTek Sakai template",
+		"description": "A React admin dashboard template forked from PrimeTek's Sakai design, rebuilt on PrimeReact for internal tools, back-office panels, and client dashboards.",
 		"features": [
-			"Demonstrates single-domain vs all-subdomains license tiers",
-			"Exercises the paid cart and checkout-stub flow"
+			"React admin shell with PrimeReact components",
+			"Ready-made dashboard, tables, and form layouts",
+			"Responsive sidebar navigation and layout system",
+			"Light and dark theme support",
+			"Structured for adding new admin modules quickly"
 		],
-		"stack": ["Angular 22", "Demo"],
+		"stack": ["React", "PrimeReact", "Admin Dashboard"],
+		"price": 0,
+		"license": "free",
+		"repoUrl": "https://github.com/WebArtWork/react-prime-sakai.webart.work",
+		"demoUrl": "https://react-prime-sakai.webart.work",
+		"previewImage": ""
+	},
+	{
+		"slug": "vue-prime-sakai",
+		"name": "Vue Prime Sakai",
+		"framework": "vue",
+		"tagline": "Vue admin dashboard, forked from the PrimeTek Sakai template",
+		"description": "A Vue admin dashboard template forked from PrimeTek's Sakai design, rebuilt on PrimeVue for internal tools, back-office panels, and client dashboards.",
+		"features": [
+			"Vue admin shell with PrimeVue components",
+			"Ready-made dashboard, tables, and form layouts",
+			"Responsive sidebar navigation and layout system",
+			"Light and dark theme support",
+			"Structured for adding new admin modules quickly"
+		],
+		"stack": ["Vue", "PrimeVue", "Admin Dashboard"],
+		"price": 0,
+		"license": "free",
+		"repoUrl": "https://github.com/WebArtWork/vue-prime-sakai.webart.work",
+		"demoUrl": "https://vue-prime-sakai.webart.work",
+		"previewImage": ""
+	},
+	{
+		"slug": "ngx-prime-butterfly",
+		"name": "Ngx Prime Butterfly",
+		"framework": "ngx",
+		"tagline": "Angular 22 landing starter forked from the PrimeTek Butterfly template",
+		"description": "An Angular 22 marketing/landing template forked from PrimeTek's Butterfly design, rebuilt on PrimeNG with Tailwind CSS for fast business and product landing pages.",
+		"features": [
+			"Angular 22 with PrimeNG components",
+			"Tailwind CSS styling",
+			"Marketing-focused landing sections",
+			"Light and dark theme support",
+			"SEO metadata wired through route data"
+		],
+		"stack": ["Angular 22", "PrimeNG", "Tailwind CSS"],
 		"price": 0,
 		"license": "paid",
 		"licenses": [
 			{ "type": "single-domain", "label": "Single domain", "price": 49 },
 			{ "type": "all-subdomains", "label": "All subdomains", "price": 149 }
 		],
-		"repoUrl": "",
-		"demoUrl": "",
+		"repoUrl": "https://github.com/WebArtWork/ngx-prime-butterfly.webart.work",
+		"demoUrl": "https://ngx-prime-butterfly.webart.work",
 		"previewImage": ""
 	}
 ]
